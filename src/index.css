@@ -1,0 +1,178 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS  — dark, restrained, red-accent premium system
+   ============================================================ */
+@theme {
+  /* Backgrounds */
+  --color-ink: #0a0a0a;
+  --color-ink-2: #111111;
+  --color-ink-3: #161616;
+  --color-surface: #1b1b1d;
+
+  /* Red accent system */
+  --color-accent: #dc2626;
+  --color-accent-deep: #b91c1c;
+  --color-accent-soft: #ef4444;
+
+  /* Gold — used sparingly for small highlights only */
+  --color-gold: #cda349;
+  --color-gold-soft: #e3c987;
+
+  /* Text */
+  --color-fg: #f4f4f5;
+  --color-fg-muted: #a1a1aa;
+  --color-fg-dim: #6b6b73;
+
+  /* Fonts */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+
+  /* Premium easing — single shared curve, no bounce/spring anywhere */
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+:root {
+  color-scheme: dark;
+  --premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-ink);
+  color: var(--color-fg);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+/* Kill horizontal overflow globally as a safety net */
+#root {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-accent) 70%, black);
+  color: #fff;
+}
+
+/* Custom scrollbar (webkit) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: #2a2a2e;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #38383e;
+}
+
+/* Focus visibility for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   UTILITIES / COMPONENTS
+   ============================================================ */
+@layer utilities {
+  .font-display { font-family: var(--font-display); }
+  .font-body { font-family: var(--font-body); }
+  .font-serif { font-family: var(--font-serif); }
+
+  .text-gradient {
+    background: linear-gradient(180deg, #ffffff 0%, #b8b8bd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .text-accent-gradient {
+    background: linear-gradient(120deg, var(--color-accent-soft), var(--color-accent-deep));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Glass surface used by premium buttons/cards */
+  .glass {
+    background: color-mix(in oklab, var(--color-ink-2) 78%, transparent);
+    backdrop-filter: blur(14px) saturate(120%);
+    -webkit-backdrop-filter: blur(14px) saturate(120%);
+    border: 1px solid color-mix(in oklab, #ffffff 9%, transparent);
+  }
+
+  .section-pad {
+    padding-inline: clamp(1.25rem, 5vw, 6rem);
+  }
+}
+
+/* Thin hairline divider */
+.hairline {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, #ffffff 12%, transparent),
+    transparent
+  );
+}
+
+/* ============================================================
+   AMBIENT ANIMATIONS (drift / float) — calm, no bounce
+   ============================================================ */
+@keyframes drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(2%, -3%, 0) scale(1.06); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes float-slow {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-14px); }
+  100% { transform: translateY(0); }
+}
+
+.animate-drift { animation: drift 18s var(--premium) infinite; }
+.animate-float-slow { animation: float-slow 7s ease-in-out infinite; }
+
+/* Click ripple for the premium AssembleButton */
+@keyframes assemble-ripple {
+  0%   { width: 8px; height: 8px; opacity: 0.6; }
+  100% { width: 340px; height: 340px; opacity: 0; }
+}
+
+/* ============================================================
+   REDUCED MOTION — accessible fallback for everything
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
