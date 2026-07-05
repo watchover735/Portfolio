@@ -163,6 +163,26 @@ body {
 }
 
 /* ============================================================
+   ID CARD — continuous Y-axis auto-spin (the one intentional
+   always-on rotation; paused while dragging). preserve-3d keeps
+   both faces in real 3D so each is visible as it passes the camera.
+   ============================================================ */
+.id-card-spinner {
+  transform-style: preserve-3d;
+}
+.id-card-spinner.is-spinning {
+  animation: id-card-spin 8s linear infinite;
+}
+.id-card-spinner.is-paused {
+  animation-play-state: paused;
+}
+
+@keyframes id-card-spin {
+  from { transform: rotateY(0deg); }
+  to   { transform: rotateY(360deg); }
+}
+
+/* ============================================================
    REDUCED MOTION — accessible fallback for everything
    ============================================================ */
 @media (prefers-reduced-motion: reduce) {

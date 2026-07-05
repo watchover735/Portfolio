@@ -1,6 +1,9 @@
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { FiCreditCard } from 'react-icons/fi'
 import GradientGlow from '../components/ambient/GradientGlow'
 import ParticleField from '../components/ambient/ParticleField'
+import IDCard from '../components/premium/IDCard'
 import { useMagnetic } from '../hooks/useMagnetic'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
@@ -49,6 +52,7 @@ const item = {
 export default function Hero() {
   const reduced = useReducedMotion()
   const initial = reduced ? 'show' : 'hidden'
+  const [showCard, setShowCard] = useState(false)
 
   return (
     <section
@@ -99,6 +103,19 @@ export default function Hero() {
             <MagneticCTA href="#contact" variant="ghost">
               Get In Touch
             </MagneticCTA>
+          </motion.div>
+
+          {/* Physical ID-card reveal — a playful, tactile touch early on the page */}
+          <motion.div variants={item} className="mt-5">
+            <button
+              type="button"
+              onClick={() => setShowCard(true)}
+              className="group inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.02] px-5 py-2.5 font-display text-sm font-medium text-fg-muted transition-[background-color,border-color,color,box-shadow] duration-500 hover:border-accent/40 hover:text-fg hover:shadow-[0_10px_40px_-16px_var(--color-accent)]"
+              style={{ transitionTimingFunction: 'var(--premium)' }}
+            >
+              <FiCreditCard className="text-base transition-transform duration-500 group-hover:-translate-y-0.5" />
+              Show ID Card
+            </button>
           </motion.div>
         </motion.div>
 
@@ -154,6 +171,11 @@ export default function Hero() {
           <span className="h-10 w-[1px] bg-gradient-to-b from-fg-dim to-transparent" />
         </motion.div>
       )}
+
+      {/* Draggable, lanyard-hung ID card */}
+      <AnimatePresence>
+        {showCard && <IDCard onClose={() => setShowCard(false)} />}
+      </AnimatePresence>
     </section>
   )
 }

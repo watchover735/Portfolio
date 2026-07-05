@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import SectionHeading from '../components/common/SectionHeading'
-import Reveal from '../components/common/Reveal'
+import HoverCard from '../components/common/HoverCard'
 import { skillGroups } from '../data/skills'
 import { useReducedMotion } from '../hooks/useReducedMotion'
 
@@ -21,9 +21,10 @@ export default function Skills() {
 
       <div className="mt-16 grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
         {skillGroups.map((group, gi) => (
-          <Reveal
+          <HoverCard
             key={group.id}
             delay={gi * 0.1}
+            glow={group.accent}
             className="glass rounded-3xl p-8 md:p-10"
           >
             <div className="flex items-center gap-3">
@@ -48,7 +49,7 @@ export default function Skills() {
                 </motion.li>
               ))}
             </motion.ul>
-          </Reveal>
+          </HoverCard>
         ))}
       </div>
     </section>

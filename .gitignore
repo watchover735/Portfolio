@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.env
+.DS_Store
+*.log
+
+# Raw source recordings / originals (kept locally, not part of the built site)
+/*.mp4
+/Screenshot*.png
+/ChatGPT Image*.png

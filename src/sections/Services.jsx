@@ -1,6 +1,7 @@
 import { FiShield } from 'react-icons/fi'
 import SectionHeading from '../components/common/SectionHeading'
 import Reveal from '../components/common/Reveal'
+import HoverCard from '../components/common/HoverCard'
 import { services, scopeNote } from '../data/services'
 
 export default function Services() {
@@ -10,20 +11,23 @@ export default function Services() {
 
       <div className="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
         {services.map((s, i) => (
-          <Reveal
+          <HoverCard
             key={s.id}
             delay={i * 0.1}
-            className={`relative flex flex-col justify-between overflow-hidden rounded-3xl border p-8 md:p-10 ${
+            glow={s.highlight ? 'var(--color-accent)' : 'var(--color-gold)'}
+            className={`flex flex-col justify-between rounded-3xl border p-8 md:p-10 ${
               s.highlight
                 ? 'border-accent/40 bg-gradient-to-br from-accent/[0.08] to-transparent'
                 : 'border-white/10 bg-ink-2'
             }`}
           >
             {s.highlight && (
-              <div
-                className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-30 blur-3xl"
-                style={{ background: 'radial-gradient(circle, var(--color-accent), transparent 70%)' }}
-              />
+              <span className="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
+                <span
+                  className="absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-30 blur-3xl"
+                  style={{ background: 'radial-gradient(circle, var(--color-accent), transparent 70%)' }}
+                />
+              </span>
             )}
             <div className="relative">
               <span
@@ -38,7 +42,7 @@ export default function Services() {
               </h3>
               <p className="mt-4 max-w-md leading-relaxed text-fg-muted">{s.description}</p>
             </div>
-          </Reveal>
+          </HoverCard>
         ))}
       </div>
 

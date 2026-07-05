@@ -40,7 +40,7 @@ export const projects = [
       "A scroll-controlled cinematic animation built for a Kellogg's Chocos concept site — a single hero product rendered through a continuous, scroll-locked reveal.",
     tags: ['Scroll-controlled', 'Brand Concept', 'Canvas'],
     responsive: 'Desktop-optimized',
-    liveUrl: 'https://website-1-aeqy.vercel.app',
+    liveUrl: 'https://website-1-awpg.vercel.app',
     video: '/assets/previews/chocos.mp4',
     poster: '/assets/previews/chocos.png',
     featured: false,
